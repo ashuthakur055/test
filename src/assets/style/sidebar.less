@@ -1,0 +1,83 @@
+.main-sidebar {
+    background: #212329;
+    .menu {
+        background: #212329;
+        border-right: 0;
+    }
+    .ant-menu {
+        .ant-menu-item {
+            align-items: center;
+            display: flex;
+            a {
+                color: @white-clr;  
+                font-size: 16px;
+                font-weight: 400;  
+                line-height: 19px;
+            }
+            svg {
+                color: @white-clr;
+                fill: @white-clr;
+            }
+            .ant-menu-item-icon {
+                &+ span {
+                    margin-left: 20px;
+                }
+            }
+            &:hover, &:focus {
+                background: @list-active-bg;
+                border-right: 6px solid @primary-color;
+            }
+        }
+        &:not(.ant-menu-horizontal) {
+            .ant-menu-item-selected {
+                background: @list-active-bg;
+                border-right: 6px solid @primary-color;
+            }
+        }
+        .sidebar-icon {
+            font-size: 20px;
+        }
+    }
+    &.ant-layout-sider {
+        .logo-img {
+            img {
+                width: 80%;
+                padding: 5px 0 15px;
+                display: block;
+                object-fit: contain;
+                margin: 0 auto 15px;
+            }
+        }
+    }
+}
+.ant-menu.ant-menu-dark, 
+.ant-menu-dark .ant-menu-sub, 
+.ant-menu.ant-menu-dark .ant-menu-sub{
+    background: #212329;
+}
+  .ant-menu-submenu {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    background: #212329;
+    border-right: 0;
+  }
+  .ant-menu-sub.ant-menu-inline {
+    background: #212329;
+    color: #ffffff;
+}
+  .ant-menu-inline.ant-menu-root .ant-menu-submenu-title > .ant-menu-title-content {
+    margin-left: 20px!important;
+  }
+  .ant-menu-title-content,.ant-menu-submenu-inline,.ant-menu-submenu-arrow,.ant-menu-submenu-title svg{
+    color: #ffffff;
+    fill: #ffffff;
+  }
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background: @list-active-bg;
+    border-right: 6px solid @primary-color;
+}
+
+
+  
