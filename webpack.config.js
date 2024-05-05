@@ -4,7 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var path = require('path');
 const Dotenv = require('dotenv-webpack');
 
-const port = process.env.PORT || 4000;
+// const port = process.env.PORT || 4000;
+
+const port = 4000;
 
 module.exports = {
   // Webpack configuration goes here
