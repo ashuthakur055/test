@@ -5,8 +5,10 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import Logo from '../../../../assets/images/logo-black.png';
 import Cart from '../../../../assets/images/cart.png';
 import '../../../../assets/style/header.less'; // Import your custom CSS for header styling
+import { HeaderMenu } from './HeaderMenu';
 
 const { Header } = Layout;
+const { leftHeader, rightHeader } = HeaderMenu;
 
 const HeaderComponent = () => {
   return (
@@ -20,20 +22,20 @@ const HeaderComponent = () => {
       <div className="demo-logo">
         <img src={Logo} alt="Logo" style={{ marginRight: '20px', backgroundColor: '#fffff' }} />
       </div>
-
-      <Menu mode="horizontal" defaultSelectedKeys={['4']} className="nav-menu">
-        <Menu.Item key="1">
-          <a href="/login">Signals</a>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <a href="/login">Experts</a>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <a href="/login">Online Courses</a>
-        </Menu.Item>
-        <Menu.Item key="4">
-          <a href="/login">Webinars</a>
-        </Menu.Item>
+      <Menu
+        mode="horizontal"
+        defaultSelectedKeys={['4']}
+        className="nav-menu"
+        style={{
+          flex: 1,
+          minWidth: 0,
+        }}
+      >
+        {leftHeader.map(item => (
+          <Menu.Item key={item.key}>
+            <Link to={item.component}>{item.name}</Link>
+          </Menu.Item>
+        ))}
       </Menu>
 
       <div className="right-menu">
