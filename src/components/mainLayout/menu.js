@@ -1,12 +1,14 @@
 import React from 'react';
 import { HomeOutlined } from '@ant-design/icons';
+import DashboardComponent from '../dashboard/Dashboard';
+// import { logOut } from './GoogleAuth'; // Import the GoogleAuthButton component
 
-const SideMenu = [
+export const sideMenu = [
   {
     name: 'Dashboard',
     key: 'dashboard',
     icon: <HomeOutlined className={'sidebar-icon'} />,
-    component: props => <Dashboard {...props} />,
+    component: props => <DashboardComponent {...props} />,
   },
 ];
 export const profileMenu = [
@@ -15,7 +17,3 @@ export const profileMenu = [
     key: 'sign-out',
   },
 ];
-
-export const sideMenu = {
-  SideMenu,
-};

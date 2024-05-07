@@ -7,11 +7,6 @@ const initialState = {
   },
   accessToken: '',
   isLoggedIn: false,
-  roleType: '',
-  tabs_access: [],
-  collections_permissions: {},
-  tabs_permissions: {},
-  prints_negatives_obj: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -21,7 +16,7 @@ const userReducer = (state = initialState, action) => {
     case userTypes.LOG_OUT:
       return { ...initialState };
     case userTypes.PERMISSION_GRANTED:
-      return { ...state , ...action.payload};
+      return { ...state, ...action.payload };
     default:
       return state;
   }

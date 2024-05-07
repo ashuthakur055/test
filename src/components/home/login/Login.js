@@ -1,17 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Form, Input, Button, Row, Col, Spin, Menu, Layout } from 'antd';
-import { UserOutlined, LockOutlined, LoadingOutlined } from '@ant-design/icons';
-import * as userActions from '../../../redux/actions/userActions';
+import { UserOutlined, MailOutlined, LockOutlined, LoadingOutlined } from '@ant-design/icons';
+import { getCookie } from '../../../services/cookies';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import HeaderComponent from './layout/Header';
 import FooterComponent from './layout/Footer';
-const { Content } = Layout;
 import GoogleLogo from '../../../assets/images/g.png';
 import AppleLogo from '../../../assets/images/a.png';
+import * as userActions from '../../../redux/actions/userActions';
+
+const { Content } = Layout;
 
 const Login = props => {
-  const onFinish = async values => {};
+  const ssfToken = getCookie('ssfToken');
+  console.log('🚀 ~ Login ~ props:', props);
+  useEffect(() => {
+    if (!!(props.isLoggedIn && ssfToken)) {
+      props.history.push('/');
+    }
+  }, []);
+  const handleSignIn = async () => {
+    await props.signInWithGoogle();
+    props.history.push('/');
+  };
+  const onFinish = async values => {
+    await props.signIn(values.emailAddress, values.password);
+  };
   let render = () => {
     return (
       <>
@@ -25,11 +40,10 @@ const Login = props => {
                   <div className="form-heading">Login</div>
                   <div className="form-section">
                     <Form className="log-in-form" layout="vertical" onFinish={onFinish}>
-                      <Form.Item name="user_name" rules={[{ required: true, message: 'Please input your name' }]}>
-                        <Input Placeholder="User Name" prefix={<UserOutlined className="prefix-icon" />} />
+                      <Form.Item name="emailAddress" rules={[{ required: true, message: 'Please input your email' }]}>
+                        <Input Placeholder="Email" prefix={<MailOutlined className="prefix-icon" />} />
                       </Form.Item>
                       <Form.Item
-                        // label="Password"
                         name="password"
                         rules={[
                           {
@@ -60,7 +74,7 @@ const Login = props => {
                         <small>or login with</small>
                       </span>
                       <div className="signup-or-link" align="center">
-                        <Link to="/login" style={{ marginRight: '10px' }}>
+                        <Link style={{ marginRight: '10px' }} onClick={handleSignIn}>
                           <img src={GoogleLogo} />
                         </Link>
                         <Link to="/login">
