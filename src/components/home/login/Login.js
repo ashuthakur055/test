@@ -9,16 +9,24 @@ import FooterComponent from './layout/Footer';
 import GoogleLogo from '../../../assets/images/g.png';
 import AppleLogo from '../../../assets/images/a.png';
 import * as userActions from '../../../redux/actions/userActions';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const { Content } = Layout;
 
 const Login = props => {
   const ssfToken = getCookie('ssfToken');
-  console.log('🚀 ~ Login ~ props:', props);
   useEffect(() => {
-    if (!!(props.isLoggedIn && ssfToken)) {
+    if (!!props.isLoggedIn) {
       props.history.push('/');
     }
+  }, []);
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        props.history.push('/');
+      }
+    });
   }, []);
   const handleSignIn = async () => {
     await props.signInWithGoogle();

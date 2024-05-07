@@ -6,11 +6,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import HeaderComponent from './layout/Header';
 import FooterComponent from './layout/Footer';
-const { Content } = Layout;
 import GoogleLogo from '../../../assets/images/g.png';
 import AppleLogo from '../../../assets/images/a.png';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+const { Content } = Layout;
 
 const signUpComponent = props => {
+  const handleSignIn = async () => {
+    await props.signInWithGoogle();
+    props.history.push('/');
+  };
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        props.history.push('/');
+      }
+    });
+  }, []);
   const onFinish = async values => {};
   let render = () => {
     return (
@@ -77,7 +90,7 @@ const signUpComponent = props => {
                         <small>or login with</small>
                       </span>
                       <div className="signup-or-link" align="center">
-                        <Link to="/login" style={{ marginRight: '10px' }}>
+                        <Link onClick={handleSignIn} style={{ marginRight: '10px' }}>
                           <img src={GoogleLogo} />
                         </Link>
                         <Link to="/login">

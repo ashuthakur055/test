@@ -9,11 +9,28 @@ import './App.less';
 
 const { Content } = Layout;
 const App = props => {
+  const redirecToPublic = async () => {
+    let { pathname, search } = props.history.location;
+    let publicRoutes = routeOptions.publicRoutes;
+    let isPathMatch = false;
+    for (let i = 0; i < publicRoutes.length; i++) {
+      let item = publicRoutes[i];
+      if (item.path === pathname) {
+        isPathMatch = true;
+        props.history.push(pathname + search);
+        break;
+      }
+    }
+    if (!isPathMatch) {
+      await props.signOut();
+      props.history.push('/login');
+    }
+  };
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
       if (!user) {
-        props.history.push('/login');
+        redirecToPublic();
       }
     });
   }, []);
